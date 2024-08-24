@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+        <!-- Projects Section-->
+        <section class="py-5">
+            <div class="container px-2 mb-5">
+                <div class="text-center mb-5">
+                    <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">My Projects</span></h1>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="container col-sm-auto row justify-content-center" id="card-container">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Call to action section-->
+        <section class="py-5 bg-gradient-primary-to-secondary text-white">
+            <div class="container px-5 my-5">
+                <div class="text-center">
+                    <h2 class="display-4 fw-bolder mb-4">Fell free to connect with me</h2>
+                    <a class="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder" href="{{ url_for ('contact')}}">Contact me</a>
+                </div>
+            </div>
+        </section>
+{% endblock content %}

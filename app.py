@@ -85,6 +85,8 @@ def not_found(error):
 @app.errorhandler(500)
 def internal_error(error):
     return render_template('500.html')
+
+
 @app.route('/download')
 def download_cv():
     from config import BASE_DIR

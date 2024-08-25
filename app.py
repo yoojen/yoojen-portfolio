@@ -94,4 +94,7 @@ def download_cv():
     return send_file(file, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    from os import getenv
+    if getenv('ENVIRONMENT') !='production':
+        app.run(debug=True)
+    app.run(debug=False)

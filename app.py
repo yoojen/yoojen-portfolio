@@ -91,7 +91,7 @@ def internal_error(error):
 def download_cv():
     cv_file = "MUTUYIMANA EUGENE_CV.pdf"
 
-    return send_from_directory('media', cv_file, as_attachment=True)
+    return send_from_directory('static', cv_file, as_attachment=True)
 
 if __name__ == '__main__':
     from os import getenv

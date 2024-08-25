@@ -89,13 +89,9 @@ def internal_error(error):
 
 @app.route('/download')
 def download_cv():
-    from config import BASE_DIR
-    from os import path
     cv_file = "MUTUYIMANA EUGENE_CV.pdf"
-    MEDIA_LOCATION = path.join(BASE_DIR, 'media')
-    file = path.join(MEDIA_LOCATION, cv_file)
 
-    return send_from_directory(MEDIA_LOCATION, cv_file, as_attachment=True)
+    return send_from_directory('media', cv_file, as_attachment=True)
 
 if __name__ == '__main__':
     from os import getenv

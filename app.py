@@ -86,12 +86,6 @@ def not_found(error):
 def internal_error(error):
     return render_template('500.html')
 
-
-@app.route('/download')
-def download_cv():
-    cv_file = "MUTUYIMANA_EUGENE_CV.pdf"
-    return send_from_directory('static', cv_file, as_attachment=True)
-
 if __name__ == '__main__':
     from os import getenv
     if getenv('ENVIRONMENT') !='production':

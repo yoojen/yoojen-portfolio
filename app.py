@@ -73,8 +73,8 @@ def contact():
             mail.send(message)
             flash("Messages delivered", "success")
             return redirect(url_for("contact"))
-    except Exception:
-        flash("There should be network issues, try again!", "error")
+    except Exception as e:
+        flash("Try again, if it persist send me email: eugeneemma7@gmail.com", "error")
         return redirect(url_for('contact'))
     return render_template('contact.html', title="Eugene - Contact", form=form)
 

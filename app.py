@@ -89,7 +89,7 @@ def internal_error(error):
 
 @app.route('/download')
 def download_cv():
-    cv_file = "MUTUYIMANA EUGENE_CV.pdf"
+    cv_file = "MUTUYIMANA_EUGENE_CV.pdf"
 
     return send_from_directory('static', cv_file, as_attachment=True)
 

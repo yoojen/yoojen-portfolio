@@ -90,7 +90,6 @@ def internal_error(error):
 @app.route('/download')
 def download_cv():
     cv_file = "MUTUYIMANA_EUGENE_CV.pdf"
-
     return send_from_directory('static', cv_file, as_attachment=True)
 
 if __name__ == '__main__':

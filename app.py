@@ -3,7 +3,7 @@ from config import Config
 from flask import (Flask, 
                    redirect, url_for, 
                    render_template,
-                   flash, send_file)
+                   flash, send_from_directory)
 from forms import ContactForm
 from flask_wtf.csrf import CSRFProtect
 from flask_mail import Mail, Message
@@ -95,7 +95,7 @@ def download_cv():
     MEDIA_LOCATION = path.join(BASE_DIR, 'media')
     file = path.join(MEDIA_LOCATION, cv_file)
 
-    return send_file(file, as_attachment=True)
+    return send_from_directory(MEDIA_LOCATION, cv_file, as_attachment=True)
 
 if __name__ == '__main__':
     from os import getenv

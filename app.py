@@ -92,11 +92,6 @@ def contact():
     return render_template('contact.html', title="Eugene - Contact", form=form)
 
 
-@app.route('/location')
-def location_test():
-    return render_template('location.html', title="Location testing")
-
-
 if __name__ == '__main__':
     from os import getenv
     if getenv('ENVIRONMENT') != 'production':

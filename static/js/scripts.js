@@ -126,7 +126,8 @@ if (window.location.pathname.includes("location")) {
   const county = document.querySelector(".county")
   const state = document.querySelector(".state")
   const distance = document.querySelector(".distance")
-  const companyLatitude = -1.9509666578420801, companyLongitude = 30.124922158344138
+  // https://www.google.com/maps/search/?api=1&query=-1.950790825589064,30.124996465729215
+  const companyLatitude = -1.950790825589064, companyLongitude = 30.124996465729215
   BASE_URL = "https://geocode.maps.co/reverse?"
 
 

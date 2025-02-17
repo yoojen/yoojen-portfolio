@@ -1,13 +1,13 @@
 from config import Config
-
-from flask import (Flask, 
-                   redirect, url_for, 
+from flask import (Flask,
+                   redirect, url_for,
                    render_template,
-                   flash, send_from_directory)
+                   flash)
 from forms import ContactForm
 from flask_wtf.csrf import CSRFProtect
 from flask_mail import Mail, Message
 from datetime import datetime
+
 
 # Global initialization
 csrf_token = CSRFProtect()
@@ -24,19 +24,32 @@ def app_init():
 
     # MAIL service Initialization
     mail.init_app(app=app)
-    
+
     return app
+
 
 app = app_init()
 
 
-@app.route('/', methods=['GET','POST'])
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html')
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('500.html')
+
+
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html', title="Eugene - Home")
+
 
 @app.route('/resume')
 def resume():
     return render_template('resume.html', title="Eugene - Resume")
+
 
 @app.route('/projects')
 def projects():
@@ -49,9 +62,9 @@ def contact():
     try:
         if form.validate_on_submit():
             data = form.data
-            message = Message(subject="Portfolio - Reach", 
-                              recipients=["eugenemutuyimana15@gmail.com"], 
-                              sender="eugeneemma7@gmail.com", 
+            message = Message(subject="Portfolio - Reach",
+                              recipients=["eugenemutuyimana15@gmail.com"],
+                              sender="eugeneemma7@gmail.com",
                               html=f"""
                                 <div style="padding: 10px; margin: 0 10px">
                                     <h3 style="text-align: center; color: white; background-color: #006400; padding: 10px;">MESSAGE FROM MY PORTFOLIO</h3>
@@ -78,16 +91,14 @@ def contact():
         return redirect(url_for('contact'))
     return render_template('contact.html', title="Eugene - Contact", form=form)
 
-@app.errorhandler(404)
-def not_found(error):
-    return render_template('404.html')
 
-@app.errorhandler(500)
-def internal_error(error):
-    return render_template('500.html')
+@app.route('/location')
+def location_test():
+    return render_template('location.html', title="Location testing")
+
 
 if __name__ == '__main__':
     from os import getenv
-    if getenv('ENVIRONMENT') !='production':
+    if getenv('ENVIRONMENT') != 'production':
         app.run(debug=True)
     app.run(debug=False)

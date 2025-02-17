@@ -109,16 +109,76 @@ if (window.location.pathname.includes("projects")) {
               <p>${project.desc}</p>
               <div class="text-gradient p-1 rounded-2 my-1">
                 ${project.technologies.map((technology) => {
-                  return ` ${technology}`;
-                })}
+      return ` ${technology}`;
+    })}
                   <br />
-                <a href="${
-                  project.link
-                }" class="text-decoration-none text-center" target="_blank">Find it here..</a>
+                <a href="${project.link}" class="text-decoration-none text-center" target="_blank">Find it here..</a>
               </div>
             </div>
           </div>
         </div>
       `;
   })
+}
+
+if (window.location.pathname.includes("location")) {
+  const road = document.querySelector(".road")
+  const county = document.querySelector(".county")
+  const state = document.querySelector(".state")
+  const distance = document.querySelector(".distance")
+  const companyLatitude = -1.9509666578420801, companyLongitude = 30.124922158344138
+  BASE_URL = "https://geocode.maps.co/reverse?"
+
+
+
+  const getCoordinates = async () => {
+
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          })
+        }, (error) => {
+          reject(error)
+        }, { enableHighAccuracy: true })
+
+    })
+  }
+
+
+  (async function () {
+    const { latitude, longitude } = await getCoordinates();
+    const distanceBtnLotLon = findDistance(latitude, longitude, companyLatitude, companyLongitude)
+    const response = await fetch(`${BASE_URL}lat=${latitude}&lon=${longitude}&api_key=67af23ad268a5190592880vrn58bcad`)
+    const data = await response.json()
+
+    road.innerHTML += data.address.road
+    county.innerHTML += data.address.county
+    state.innerHTML += data.address.state
+    distance.innerHTML += distanceBtnLotLon
+
+
+  }())
+
+  function findDistance(lat1, lon1, lat2, lon2) {
+    let earthRadius = 6371;
+    lon1 = lon1 * Math.PI / 180;
+    lon2 = lon2 * Math.PI / 180;
+    lat1 = lat1 * Math.PI / 180;
+    lat2 = lat2 * Math.PI / 180;
+
+    // Haversine formula 
+    let dlon = lon2 - lon1;
+    let dlat = lat2 - lat1;
+    let a = Math.pow(Math.sin(dlat / 2), 2)
+      + Math.cos(lat1) * Math.cos(lat2)
+      * Math.pow(Math.sin(dlon / 2), 2);
+
+    let c = 2 * Math.asin(Math.sqrt(a));
+
+    return (c * earthRadius * 1.609344 * 1000).toFixed(2);
+  }
+
 }
